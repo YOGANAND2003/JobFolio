@@ -24,7 +24,7 @@ const Job = ({job}) => {
       <div className='flex items-center gap-2 my-2'>
         <Button className='p-6' variant="outline" size="icon">
           <Avatar>
-            <AvatarImage src="https://st3.depositphotos.com/43745012/44906/i/450/depositphotos_449066958-stock-photo-financial-accounting-logo-financial-logo.jpg"></AvatarImage>
+            <AvatarImage src={job?.company?.logo}></AvatarImage>
           </Avatar>
         </Button>
         <div>
@@ -39,7 +39,7 @@ const Job = ({job}) => {
       <div className='flex items-center gap-2 mt-4'>
         <Badge className={'text-blue-700 font-bold'} variant="ghost">{job?.position} Positions</Badge>
         <Badge className={'text-[#f83002] font-bold'} variant="ghost">{job?.jobType}</Badge>
-        <Badge className={'text-[#c88bf0] font-bold'} variant="ghost">{job?.salary}LPA</Badge>
+        <Badge className={'text-[#c88bf0] font-bold'} variant="ghost">{job?.salary} LPA</Badge>
       </div>
       <div className='flex items-center gap-4 mt-4'>
         <Button onClick={()=> navigate(`/description/${job?._id}`)} variant="outline" className="bg-[#9beb06] font-bold">Details</Button>
