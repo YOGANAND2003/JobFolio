@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { setAllApplicants } from '@/redux/applicationSlice'
 import store from '@/redux/store'
+import { motion } from 'framer-motion'
 
 const Applicants = () => {
   const params = useParams();
@@ -24,13 +25,20 @@ const Applicants = () => {
     fetchApplicants();
   }, [])
   return (
+    <motion.div
+            initial={{ opacity: 1, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            // className='min-h-screen bg-[#6A9C89]' // Apply background color to the whole page
+        >
     <div>
       <NavBar />
-      <div className='max-w-7xl mx-auto'>
-        <h1 className='font-bold text-xl my-5'>Applicants {applicants?.applications?.length}</h1>
+      <div className='max-w-7xl mx-auto my-14'>
+        <h1 className='font-bold text-xl my-5'>Applicants: {applicants?.applications?.length}</h1>
         <ApplicantsTable />
       </div>
     </div>
+    </motion.div>
   )
 }
 

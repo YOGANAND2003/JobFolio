@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import store from '@/redux/store';
 import { setLoading } from '@/redux/authSlice';
 import { Loader2 } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const Signup = () => {
   const [input, setInput] = useState({
@@ -23,7 +24,7 @@ const Signup = () => {
     file: ""
   });
 
-  const {loading,user} =useSelector(store=>store.auth);
+  const { loading, user } = useSelector(store => store.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -68,72 +69,80 @@ const Signup = () => {
     } catch (error) {
       console.error("Error in API call:", error);
       toast.error(error.response?.data?.message || "An error occurred. Please try again.");
-    } finally{
+    } finally {
       dispatch(setLoading(false));
     }
   };
-  useEffect(()=>{
-    if(user){
+
+  useEffect(() => {
+    if (user) {
       navigate("/")
     }
-  })
+  });
 
   return (
+    <motion.div
+            initial={{ opacity: 1, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className='min-h-screen bg-[#6A9C89]' // Apply background color to the whole page
+        >
     <div>
       <NavBar />
-      <div className='flex items-center justify-center max-w-12xl'>
-        <form onSubmit={submitHandler} className='w-1/2 border border-gray-200 shadow-md rounded-md p-4 my-10'>
-          <h1 className='font-bold text-xl mb-5'>Sign up</h1>
-          <div className='my-2'>
-            <div className='my-1'>
-              <Label>Full Name</Label>
-            </div>
+      <motion.div
+                                            initial={{opacity:0, x:100}}
+                                            animate={{opacity:1,x:0}}
+                                            exit={{opacity:0,x:-100}}
+                                            transition={{duration:0.3}}>
+      <div className='flex items-center justify-center   '>
+        <form onSubmit={submitHandler} className='w-full max-w-lg bg-white border border-gray-200 shadow-md rounded-lg p-6 my-4'>
+          <h1 className='font-bold text-2xl text-center text-black mb-6'>Sign up</h1>
+          <div className='mb-4'>
+            <Label className="mb-2 block font-medium text-base">Full Name</Label>
             <Input
               type="text"
               value={input.fullname}
               name="fullname"
               onChange={changeEventHandler}
               placeholder="Enter your fullname"
+              className="w-full border border-gray-300 text-base rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
           </div>
-          <div className='my-2'>
-            <div className='my-1'>
-              <Label>Email</Label>
-            </div>
+          <div className='mb-4'>
+            <Label className="mb-2 block font-medium text-base">Email</Label>
             <Input
               type="email"
               value={input.email}
               name="email"
               onChange={changeEventHandler}
               placeholder="Enter your email"
+              className="w-full border border-gray-300 text-base rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
           </div>
-          <div className='my-2'>
-            <div className='my-1'>
-              <Label>Phone Number</Label>
-            </div>
+          <div className='mb-4'>
+            <Label className="mb-2 block font-medium text-base">Phone Number</Label>
             <Input
               type="text"
               value={input.phoneNumber}
               name="phoneNumber"
               onChange={changeEventHandler}
               placeholder="Enter your phone number"
+              className="w-full border border-gray-300 text-base rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
           </div>
-          <div className='my-2'>
-            <div className='my-1'>
-              <Label>Password</Label>
-            </div>
+          <div className='mb-4'>
+            <Label className="mb-2 block font-medium text-base">Password</Label>
             <Input
               type="password"
               value={input.password}
               name="password"
               onChange={changeEventHandler}
               placeholder="Enter your password"
+              className="w-full border border-gray-300 text-base rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
           </div>
-          <div className='flex items-center justify-between'>
-            <RadioGroup className='flex items-center gap-4 my-2'>
+          <div className='className="flex items-center justify-between my-4'>
+            <RadioGroup  className="flex items-center gap-6">
               <div className="flex items-center space-x-2">
                 <Input
                   type="radio"
@@ -143,9 +152,9 @@ const Signup = () => {
                   onChange={changeEventHandler}
                   className="cursor-pointer"
                 />
-                <Label htmlFor="r1">Student</Label>
+                <Label className="ml-2 font-medium text-base">Student</Label>
               </div>
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center">
                 <Input
                   type="radio"
                   name="role"
@@ -154,26 +163,42 @@ const Signup = () => {
                   onChange={changeEventHandler}
                   className="cursor-pointer"
                 />
-                <Label htmlFor="r2">Recruiter</Label>
+                <Label className="ml-2 font-medium text-base">Recruiter</Label>
               </div>
             </RadioGroup>
-            <div className='flex items-center gap-2'>
-              <Label>Profile</Label>
-              <Input
-                accept="image/*"
-                type="file"
-                onChange={changeFileHandler}
-                className="cursor-pointer"
-              />
-            </div>
+          </div>
+          <div className='mb-6'>
+            <Label className="block mb-2 font-medium text-base">Profile Picture</Label>
+            <Input
+              accept="image/*"
+              type="file"
+              onChange={changeFileHandler}
+              className="cursor-pointer w-full border text-base border-gray-300 rounded-md p-2"
+            />
           </div>
           {
-            loading ? <Button className='w-full my-4'><Loader2 className='mr-2 h-4 w-4 animate-spin' />Please wait</Button>:<Button type="submit" className="w-full my-4">Signup</Button>
+            loading ? 
+              <Button className='w-full flex justify-center items-center p-3 bg-blue-500 text-white rounded-md'>
+                <Loader2 className='mr-2 h-5 w-5 animate-spin' />Please wait
+              </Button>
+              : 
+              <Button type="submit" className="w-full p-3 text-base bg-[#305a53]  text-white rounded-md  hover:bg-[#0f3630]">
+                Sign up
+              </Button>
           }
-          <span>Already have an account? <Button className="bg-[#4596ec] text-white"><Link to="/login">Login</Link></Button></span>
+          <div className="text-center text-base font-medium my-4">
+            <span>Already Have an Account? </span>
+            <Link to="/login">
+              <Button className="bg-blue-500 hover:bg-blue-600 text-base text-white ml-2 py-1 px-3 rounded-md">
+                Login
+              </Button>
+            </Link>
+          </div>
         </form>
       </div>
+      </motion.div>
     </div>
+    </motion.div>
   );
 }
 

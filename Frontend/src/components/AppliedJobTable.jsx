@@ -12,10 +12,10 @@ const AppliedJobTable = () => {
                 <TableCaption>A list of jobs you have applied</TableCaption>
                 <TableHeader>
                     <TableRow >
-                        <TableHead className='font-bold'>Date</TableHead>
-                        <TableHead className='font-bold'>Job Title</TableHead>
-                        <TableHead className='font-bold'>Company</TableHead>
-                        <TableHead className='text-right'>Status</TableHead>
+                        <TableHead className='font-bold text-black'>Date</TableHead>
+                        <TableHead className='font-bold text-black'>Job Title</TableHead>
+                        <TableHead className='font-bold text-black'>Company</TableHead>
+                        <TableHead className='font-bold text-center text-black'>Status</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -27,8 +27,8 @@ const AppliedJobTable = () => {
                                 <TableCell>{appliedJob?.createdAt?.split("T")[0]}</TableCell>
                                 <TableCell>{appliedJob?.job?.title || "N/A"}</TableCell>
                                 <TableCell>{appliedJob?.job?.company?.name || "N/A"}</TableCell>
-                                <TableCell className="text-right">
-                                    <Badge className={`${appliedJob?.status == "rejected" ? 'bg-red-500' : appliedJob.status == "pending" ? 'bg-gray-500' : 'bg-green-500'}`}>{appliedJob?.status.toUpperCase()}</Badge>
+                                <TableCell className="text-center">
+                                    <Badge className={`${appliedJob?.status == "rejected" ? 'bg-red-500 text-black font-medium' : appliedJob.status == "pending" ? 'bg-gray-500 text-black font-medium' : 'bg-green-500 text-black font-medium'}`}>{appliedJob?.status.toUpperCase()}</Badge>
                                 </TableCell>
                             </TableRow>
                         ))

@@ -25,9 +25,7 @@ const HeroSection = () => {
     }
   };
   return (
-    
-
-    
+   
     <div className='text-center rounded-sm'>
       <div className='flex flex-col gap-5 py-16 bg-[#6A9C89]'>
         <span className='mx-auto px-4 py-1 rounded-full  font-bold text-[#2A2A2A] text-2xl '>A place for Job Hunt</span>
@@ -38,7 +36,7 @@ const HeroSection = () => {
            placeholder='Find your dream jobs'
            onChange={(e)=>setQuery(e.target.value)}
            onKeyDown={handleKeyPress} // Detect Enter key press
-            className='outline-none border-none w-full bg-[#F0EDE5]' />
+            className='outline-none border-none w-full font-medium bg-[#F0EDE5]' />
           <Button onClick={searchJobHandler} className='rounded-r-full bg-[#2A2A2A]'>
             <Search className='h-5 w-5' />
           </Button>

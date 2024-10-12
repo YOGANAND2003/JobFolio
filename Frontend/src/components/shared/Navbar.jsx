@@ -37,55 +37,55 @@ const NavBar = () => {
   }
   return (
 
-      <div className="bg-[#16423C]">
-        {" "}
-        {/* Adding side margins */}
-        <div className="flex items-center justify-between mx-auto max-w-7xl h-16 py-9">
-          <div>
-            <h1 className="text-4xl font-bold text-[#FFFFFF]">
-              Job<span className="text-[#F0EDE5]">Folio</span>
-            </h1>
-          </div>
-          <div className="flex items-center gap-12">
-            <ul className="flex font-medium items-center gap-5">
-              {
-                user && user.role == 'recruiter' ? (
-                  <>
-                    <li className="text-[#FFFFFF] text-lg hover:text-[#D4F1F4] transition-transform duration-300 hover:scale-110"><Link to="/admin/companies"> Companies</Link></li>
-                    <li className="text-[#FFFFFF] text-lg hover:text-[#D4F1F4] transition-transform duration-300 hover:scale-110"><Link to="/admin/jobs"> Jobs</Link></li>
-                  </>
-                ) : (
-                  <>
-                    <li className="text-[#FFFFFF] text-lg hover:text-[#D4F1F4] transition-transform duration-300 hover:scale-110"><Link to="/"> Home</Link></li>
-                    <li className="text-[#FFFFFF] text-lg hover:text-[#D4F1F4] transition-transform duration-300 hover:scale-110"><Link to="/jobs"> Jobs</Link></li>
-                    <li className="text-[#FFFFFF] text-lg hover:text-[#D4F1F4] transition-transform duration-300 hover:scale-110"><Link to="/browse"> Browse</Link></li>
-                  </>
-                )
-              }
-            </ul>
+    <div className="bg-[#16423C]">
+      {" "}
+      {/* Adding side margins */}
+      <div className="flex items-center justify-between mx-auto max-w-7xl h-16 py-9">
+        <div>
+          <Link to="/" className="text-4xl font-bold text-[#FFFFFF] hover:text-[#D4F1F4] transition-transform duration-300">
+            Job<span className="text-[#F0EDE5]">Folio</span>
+          </Link>
+        </div>
+        <div className="flex items-center gap-12">
+          <ul className="flex font-medium items-center gap-5">
             {
-              !user ? (
-                <div className="flex gap-2 items-center">
-                  <Link to="/login"><Button className='transition-transform duration-300 hover:scale-110' variant="outline">Login</Button></Link>
-                  <Link to="/signup"><Button className="bg-[#2A2A2A] hover:bg-[#505050] transition-transform duration-300 hover:scale-110">Signup</Button></Link>
-                </div>
+              user && user.role == 'recruiter' ? (
+                <>
+                  <li className="text-[#FFFFFF] text-lg hover:text-[#D4F1F4] transition-transform duration-300 hover:scale-110"><Link to="/admin/companies"> Companies</Link></li>
+                  <li className="text-[#FFFFFF] text-lg hover:text-[#D4F1F4] transition-transform duration-300 hover:scale-110"><Link to="/admin/jobs"> Jobs</Link></li>
+                </>
               ) : (
-                <Popover >
-                  <PopoverTrigger asChild>
-                    <Avatar className="w-10 h-10 cursor-pointer transition-transform duration-300 hover:scale-110 ">
-                      <AvatarImage className="rounded-full"
-                        src={user?.profile?.profilePhoto} alt="@shadcn"
-                      />
-                    </Avatar>
-                  </PopoverTrigger>
-                  <motion.div
+                <>
+                  <li className="text-[#FFFFFF] text-lg hover:text-[#D4F1F4] transition-transform duration-300 hover:scale-110"><Link to="/"> Home</Link></li>
+                  <li className="text-[#FFFFFF] text-lg hover:text-[#D4F1F4] transition-transform duration-300 hover:scale-110"><Link to="/jobs"> Jobs</Link></li>
+                  <li className="text-[#FFFFFF] text-lg hover:text-[#D4F1F4] transition-transform duration-300 hover:scale-110"><Link to="/browse"> Browse</Link></li>
+                </>
+              )
+            }
+          </ul>
+          {
+            !user ? (
+              <div className="flex gap-2 items-center">
+                <Link to="/login"><Button className='transition-transform duration-300 hover:scale-110' variant="outline">Login</Button></Link>
+                <Link to="/signup"><Button className="bg-[#2A2A2A] hover:bg-[#505050] transition-transform duration-300 hover:scale-110">Signup</Button></Link>
+              </div>
+            ) : (
+              <Popover >
+                <PopoverTrigger asChild>
+                  <Avatar className="w-10 h-10 cursor-pointer transition-transform duration-300 hover:scale-110 ">
+                    <AvatarImage className="rounded-full"
+                      src={user?.profile?.profilePhoto} alt="@shadcn"
+                    />
+                  </Avatar>
+                </PopoverTrigger>
+                <motion.div
                   initial={{ opacity: 1, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.3 }}
-                  >
-                  <PopoverContent 
-                  className=" w-64 bg-[#F0EDE5] rounded shadow-lg m-2">
+                >
+                  <PopoverContent
+                    className=" w-64 bg-[#F0EDE5] rounded shadow-lg m-2">
                     <div className="flex gap-8 space-y-2  ">
                       <Avatar className=" w-10 h-10 cursor-pointer">
                         <AvatarImage className="m-4 rounded-full transition-transform duration-300 hover:scale-110 "
@@ -94,7 +94,7 @@ const NavBar = () => {
                       </Avatar>
                       <div>
                         <h4 className="font-bold text-lg ">{user?.fullname}</h4>
-                        <p className="text-sm text-gray-950 text-muted-foreground ">{user?.profile.bio}</p>
+                        <p className="text-sm font-medium text-gray-950 text-muted-foreground ">{user?.profile.bio}</p>
                       </div>
                     </div>
                     <div className="flex flex-col text-gray-800 my-2 mx-4">
@@ -113,13 +113,13 @@ const NavBar = () => {
                       </div>
                     </div>
                   </PopoverContent>
-                  </motion.div>
-                </Popover>
-              )
-            }
-          </div>
+                </motion.div>
+              </Popover>
+            )
+          }
         </div>
-      </div >
+      </div>
+    </div >
   );
 };
 
