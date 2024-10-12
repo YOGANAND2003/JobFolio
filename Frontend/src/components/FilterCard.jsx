@@ -30,8 +30,8 @@ const FilterCard = () => {
     dispatch(setSearchedQuery(selectedValue));
   },[selectedValue])
   return (
-    <div className='w-full bg-white p-3 rounded-md'>
-      <h1 className='font-bold text-lg'>Filter Jobs</h1>
+    <div className='w-full bg-[#6A9C89]  rounded-md px-6 pb-14 '>
+      <h1 className='font-bold text-lg pt-6'>Filter Jobs</h1>
       <hr className='mt-3'/>
       <RadioGroup value={selectedValue} onValueChange={changeHandler}>
         {
@@ -42,7 +42,7 @@ const FilterCard = () => {
                 data.array.map((item,idx)=>{
                   const itemId = `id${index}-${idx}`
                   return (
-                    <div className='flex items-center space-x-2 my-2'>
+                    <div className='flex items-center space-x-2 my-2 font-semibold '>
                       <RadioGroupItem value={item} id={itemId}/>
                       <Label htmlFor={itemId}>{item}</Label>
                     </div>

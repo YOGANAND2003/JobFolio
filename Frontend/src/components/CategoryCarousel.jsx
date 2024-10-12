@@ -4,6 +4,7 @@ import { Button } from './ui/button';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setSearchedQuery } from '@/redux/jobSlice';
+import { motion } from 'framer-motion';
 
 const category = [
     "Front-end Developer",
@@ -22,8 +23,8 @@ const CategoryCarasoul = () => {
         navigate("/browse");
       }
     return (
-        <div>
-            <Carousel className='w-full max-w-xl mx-auto my-20'>
+        <div className='bg-[#6A9C89]'>
+            <Carousel className='w-full max-w-3xl mx-auto py-10 '>
                 <CarouselContent>
                     {
                         category.map((cat, index) => (

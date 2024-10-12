@@ -24,7 +24,13 @@ const Jobs = () => {
     },[allJobs,searchedQuery]);
 
     return (
-        <div>
+        <motion.div
+      initial={{ opacity: 1, y: -50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="bg-[#6A9C89] "
+    >
+        <div className='bg-[#C4DAD2] '>
             <NavBar />
             <div className='max-w-7xl mx-auto mt-5'>
                 <div className='flex gap-5'>
@@ -43,7 +49,7 @@ const Jobs = () => {
                                             exit={{opacity:0,x:-100}}
                                             transition={{duration:0.3}}
                                              key={job?._id}>
-                                                 <Job job={job}/>
+                                                 <Job className=' ' job={job}/>
                                             </motion.div>
                                         ))
                                     }
@@ -54,6 +60,7 @@ const Jobs = () => {
                 </div>
             </div>
         </div>
+        </motion.div>
     )
 }
 

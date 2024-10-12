@@ -14,6 +14,7 @@ import axios from "axios";
 import { USER_API_END_POINT } from "@/utils/constant.js";
 import { setUser } from "@/redux/authSlice.js";
 import { toast } from "sonner";
+import { motion } from "framer-motion";
 
 const NavBar = () => {
   const { user } = useSelector(store => store.auth);
@@ -35,84 +36,90 @@ const NavBar = () => {
     }
   }
   return (
-    <div className="bg-white ">
-      {" "}
-      {/* Adding side margins */}
-      <div className="flex items-center justify-between mx-auto max-w-7xl h-16">
-        <div>
-          <h1 className="text-2xl font-bold">
-            Work<span className="text-[#f83002]">Brio</span>
-          </h1>
-        </div>
-        <div className="flex items-center gap-12">
-          <ul className="flex font-medium items-center gap-5">
+
+      <div className="bg-[#16423C]">
+        {" "}
+        {/* Adding side margins */}
+        <div className="flex items-center justify-between mx-auto max-w-7xl h-16 py-9">
+          <div>
+            <h1 className="text-4xl font-bold text-[#FFFFFF]">
+              Job<span className="text-[#F0EDE5]">Folio</span>
+            </h1>
+          </div>
+          <div className="flex items-center gap-12">
+            <ul className="flex font-medium items-center gap-5">
+              {
+                user && user.role == 'recruiter' ? (
+                  <>
+                    <li className="text-[#FFFFFF] text-lg hover:text-[#D4F1F4] transition-transform duration-300 hover:scale-110"><Link to="/admin/companies"> Companies</Link></li>
+                    <li className="text-[#FFFFFF] text-lg hover:text-[#D4F1F4] transition-transform duration-300 hover:scale-110"><Link to="/admin/jobs"> Jobs</Link></li>
+                  </>
+                ) : (
+                  <>
+                    <li className="text-[#FFFFFF] text-lg hover:text-[#D4F1F4] transition-transform duration-300 hover:scale-110"><Link to="/"> Home</Link></li>
+                    <li className="text-[#FFFFFF] text-lg hover:text-[#D4F1F4] transition-transform duration-300 hover:scale-110"><Link to="/jobs"> Jobs</Link></li>
+                    <li className="text-[#FFFFFF] text-lg hover:text-[#D4F1F4] transition-transform duration-300 hover:scale-110"><Link to="/browse"> Browse</Link></li>
+                  </>
+                )
+              }
+            </ul>
             {
-              user && user.role == 'recruiter' ? (
-                <>
-                  <li><Link to="/admin/companies"> Companies</Link></li>
-                  <li><Link to="/admin/jobs"> Jobs</Link></li>
-                </>
+              !user ? (
+                <div className="flex gap-2 items-center">
+                  <Link to="/login"><Button className='transition-transform duration-300 hover:scale-110' variant="outline">Login</Button></Link>
+                  <Link to="/signup"><Button className="bg-[#2A2A2A] hover:bg-[#505050] transition-transform duration-300 hover:scale-110">Signup</Button></Link>
+                </div>
               ) : (
-                <>
-                  <li><Link to="/"> Home</Link></li>
-                  <li><Link to="/jobs"> Jobs</Link></li>
-                  <li><Link to="/browse"> Browse</Link></li>
-                </>
-              )
-            }
-          </ul>
-          {
-            !user ? (
-              <div className="flex gap-2 items-center">
-                <Link to="/login"><Button variant="outline">Login</Button></Link>
-                <Link to="/signup"><Button className="bg-[#8b1b96] hover:bg-[#521259]">Signup</Button></Link>
-              </div>
-            ) : (
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Avatar className="w-10 h-10 cursor-pointer ">
-                    <AvatarImage className="rounded-full"
-                      src={user?.profile?.profilePhoto} alt="@shadcn"
-                    />
-                  </Avatar>
-                </PopoverTrigger>
-                <PopoverContent className="w-80 bg-white rounded shadow-lg">
-                  <div className="flex gap-8 space-y-2  ">
-                    <Avatar className=" w-10 h-10 cursor-pointer">
-                      <AvatarImage className="m-4 rounded-full "
+                <Popover >
+                  <PopoverTrigger asChild>
+                    <Avatar className="w-10 h-10 cursor-pointer transition-transform duration-300 hover:scale-110 ">
+                      <AvatarImage className="rounded-full"
                         src={user?.profile?.profilePhoto} alt="@shadcn"
                       />
                     </Avatar>
-                    <div>
-                      <h4 className="font-medium">{user?.fullname}</h4>
-                      <p className="text-sm text-muted-foreground">{user?.profile.bio}</p>
+                  </PopoverTrigger>
+                  <motion.div
+                  initial={{ opacity: 1, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.3 }}
+                  >
+                  <PopoverContent 
+                  className=" w-64 bg-[#F0EDE5] rounded shadow-lg m-2">
+                    <div className="flex gap-8 space-y-2  ">
+                      <Avatar className=" w-10 h-10 cursor-pointer">
+                        <AvatarImage className="m-4 rounded-full transition-transform duration-300 hover:scale-110 "
+                          src={user?.profile?.profilePhoto} alt="@shadcn"
+                        />
+                      </Avatar>
+                      <div>
+                        <h4 className="font-bold text-lg ">{user?.fullname}</h4>
+                        <p className="text-sm text-gray-950 text-muted-foreground ">{user?.profile.bio}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex flex-col text-gray-600 my-2 mx-4">
-                    {
-                      user && user.role == 'student' && (
+                    <div className="flex flex-col text-gray-800 my-2 mx-4">
+                      {
+                        user && user.role == 'student' && (
 
-                        <div className="flex w-fit items-center gap-2 cursor-pointer">
-                          <User2 />
-                          <Button variant="link"><Link to="/profile">View Profile</Link></Button>
-                        </div>
-                      )
-                    }
-                    <div className="flex w-fit items-center gap-4 my-2 cursor-pointer">
-                      <LogOut />
-                      <Button onClick={logoutHandler} variant="link">LogOut</Button>
+                          <div className="flex w-fit items-center gap-2 cursor-pointer ">
+                            <User2 />
+                            <Button variant="link" className='hover:no-underline transition-transform duration-300 hover:scale-110'><Link to="/profile">View Profile</Link></Button>
+                          </div>
+                        )
+                      }
+                      <div className="flex w-fit items-center gap-4 my-2 cursor-pointer ">
+                        <LogOut />
+                        <Button onClick={logoutHandler} variant="link" className='transition-transform duration-300 hover:scale-110 hover:no-underline'>LogOut</Button>
+                      </div>
                     </div>
-                  </div>
-
-                </PopoverContent>
-              </Popover>
-            )
-          }
-
-
+                  </PopoverContent>
+                  </motion.div>
+                </Popover>
+              )
+            }
+          </div>
         </div>
-      </div>
-    </div >
+      </div >
   );
 };
 

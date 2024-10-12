@@ -54,7 +54,6 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
             });
             if (res.data.success) {
                 dispatch(setUser(res.data.user));
-                // console.log(res.data.user);
                 toast.success(res.data.message);
             }
         } catch (error) {
@@ -68,89 +67,90 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
             setLoading(false);
         }
         setOpen(false);
-        console.log(input);
     }
-    
-
-
 
     return (
-        <div>
+        <div className='bg-[#6A9C89]'>
             <Dialog open={open}>
-                <DialogContent className="sm:max-w-[425px]" onInteractOutside={() => setOpen(false)}>
+                <DialogContent className="sm:max-w-[425px] bg-gray-50 text-gray-800 p-6 rounded-lg shadow-lg" onInteractOutside={() => setOpen(false)}>
                     <DialogHeader>
-                        <DialogTitle>Update Profile</DialogTitle>
+                        <DialogTitle className="text-xl font-semibold text-teal-700">Update Profile</DialogTitle>
                     </DialogHeader>
                     <form onSubmit={submitHandler}>
-                        <div className='grid gap-4 py-4'>
+                        <div className='grid gap-4 py-4 font-semibold'>
                             <div className='grid grid-cols-4 items-center gap-4'>
-                                <Label htmlFor="name" className="text-right">Name</Label>
+                                <Label htmlFor="fullname" className="text-right text-gray-700 font-bold">Name</Label>
                                 <Input
-                                    id="name"
-                                    name="name"
+                                    id="fullname"
+                                    name="fullname"
                                     type="text"
                                     value={input.fullname}
                                     onChange={changeEventHandler}
-                                    className="col-span-3"
+                                    className="col-span-3 border border-gray-300 "
                                 />
                             </div>
                             <div className='grid grid-cols-4 items-center gap-4'>
-                                <Label htmlFor="email" className="text-right">Email</Label>
+                                <Label htmlFor="email" className="text-right text-gray-700 font-bold">Email</Label>
                                 <Input
                                     id="email"
                                     name="email"
                                     type="email"
                                     value={input.email}
                                     onChange={changeEventHandler}
-                                    className="col-span-3"
+                                    className="col-span-3 border border-gray-300"
                                 />
                             </div>
                             <div className='grid grid-cols-4 items-center gap-4'>
-                                <Label htmlFor="number" className="text-right">Number</Label>
+                                <Label htmlFor="number" className="text-right text-gray-700 font-bold">Number</Label>
                                 <Input
                                     id="number"
-                                    name="number"
+                                    name="phoneNumber"
                                     value={input.phoneNumber}
                                     onChange={changeEventHandler}
-                                    className="col-span-3"
+                                    className="col-span-3 border border-gray-300 "
                                 />
                             </div>
                             <div className='grid grid-cols-4 items-center gap-4'>
-                                <Label htmlFor="bio" className="text-right">Bio</Label>
+                                <Label htmlFor="bio" className="text-right text-gray-700 font-bold">Bio</Label>
                                 <Input
                                     id="bio"
                                     name="bio"
                                     value={input.bio}
                                     onChange={changeEventHandler}
-                                    className="col-span-3"
+                                    className="col-span-3 border border-gray-300"
                                 />
                             </div>
                             <div className='grid grid-cols-4 items-center gap-4'>
-                                <Label htmlFor="skills" className="text-right">Skills</Label>
+                                <Label htmlFor="skills" className="text-right text-gray-700 font-bold">Skills</Label>
                                 <Input
                                     id="skills"
                                     name="skills"
                                     value={input.skills}
                                     onChange={changeEventHandler}
-                                    className="col-span-3"
+                                    className="col-span-3 border border-gray-300"
                                 />
                             </div>
                             <div className='grid grid-cols-4 items-center gap-4'>
-                                <Label htmlFor="file" className="text-right">Resume</Label>
+                                <Label htmlFor="file" className="text-right text-gray-700 font-bold">Resume</Label>
                                 <Input
                                     id="file"
                                     name="file"
                                     type="file"
                                     accept="application/pdf"
-                                    // value={input.file}
                                     onChange={fileChangeHandler}
-                                    className="col-span-3"
+                                    className="col-span-3 border border-gray-300"
                                 />
                             </div>
                         </div>
                         <DialogFooter>
                             {
-                                loading ? <Button className="w-full my-4"> <Loader2 className='mr-2 h-4 w-4 animate-spin' /> Please wait </Button> : <Button type="submit" className="w-full my-4">Update</Button>
+                                loading ? (
+                                    <Button className="w-full my-4 bg-teal-500 text-white hover:bg-teal-600"> 
+                                        <Loader2 className='mr-2 h-4 w-4 animate-spin' /> Please wait 
+                                    </Button>
+                                ) : (
+                                    <Button type="submit" className="w-full my-4 bg-teal-500 text-white hover:bg-teal-600">Update</Button>
+                                )
                             }
                         </DialogFooter>
                     </form>
