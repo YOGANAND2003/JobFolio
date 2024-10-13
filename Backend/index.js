@@ -7,22 +7,20 @@ import userRoute from "./routes/user.route.js";
 import companyRoute from "./routes/company.route.js";
 import jobRoute from "./routes/job.route.js";
 import applicationRoute from "./routes/application.route.js";
+import path from "path";
+import bodyParser from "body-parser";
 
 dotenv.config({});
+//connect db
+connectDB();
+const PORT = process.env.PORT || 3000  ;
 const app = express();
 
-// yoganand0203
-// fA4AqsE3pYCaE4Rc --1st password
-//MOQp6tVuu8Vuc2PL - 2nd password
-// app.get("/home", (req,res)=>{
-//     return res.status(200).json({
-//         message:"I am coming from Backend",
-//         success:true 
-//     })
-// })
+const _dirname = path.resolve();
 
 //middleware
 app.use(express.json());
+app.use(bodyParser.urlencoded({extended:true}))
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
 const corsOptions = {
@@ -31,7 +29,6 @@ const corsOptions = {
 }
 
 app.use(cors(corsOptions));
-    const PORT = process.env.PORT || 3000  ;
 
 //API's
 app.use("/api/v1/user",userRoute);
@@ -39,12 +36,12 @@ app.use("/api/v1/company",companyRoute);
 app.use("/api/v1/job", jobRoute);
 app.use("/api/v1/application", applicationRoute);
 
-// The three apis that will be run are like from app.use("/api/v1/user",userRoute) :
-// "http://localhost:8000/api/v1/user/register"
-// "http://localhost:8000/api/v1/user/login"
-// "http://localhost:8000/api/v1/user/profile/update"
+app.use(express.static(path.join(_dirname,"/Frontend/dist")));
+app.get('*', (req,res)=>{
+    res.sendFile(path.resolve(_dirname,"Frontend", "dist", "index.html"));
+})
+
 
 app.listen(PORT, ()=>{
-    connectDB();
     console.log(`Server running at port ${PORT}`);
 });

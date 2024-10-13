@@ -19,9 +19,7 @@ const Profile = () => {
     useGetAppliedJobs();
     const [open, setOpen] = useState(false);
     const { user } = useSelector(store => store.auth);
-    // console.log('User in Profile:', user);  // Verify user data
-    // console.log('Resume URL:', user?.profile?.resume);
-    // console.log('Resume Name:', user?.profile?.resumeOriginalName);
+
 
     return (
         <motion.div
