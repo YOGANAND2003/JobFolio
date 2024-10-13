@@ -9,6 +9,8 @@ import jobRoute from "./routes/job.route.js";
 import applicationRoute from "./routes/application.route.js";
 import path from "path";
 import bodyParser from "body-parser";
+import datauri from 'datauri'; // Correct case
+
 
 dotenv.config({});
 //connect db

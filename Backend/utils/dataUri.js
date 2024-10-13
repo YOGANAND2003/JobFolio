@@ -1,4 +1,6 @@
 import DataUriParser from "dataUri/parser.js"
+import datauri from 'datauri'; // Correct case
+
 
 import path from "path";
 
