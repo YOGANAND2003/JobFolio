@@ -26,5 +26,8 @@
     "multer": "^1.4.5-lts.1",
     "nodemon": "^3.1.7",
     "react-redux": "^9.1.2"
+  },
+  "devDependencies": {
+    "vite": "^5.4.8"
   }
 }
