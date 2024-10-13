@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({extended:true}))
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
 const corsOptions = {
-    origin:'https://job-folio.vercel.app/',
+    origin:'http://localhost:5173',
     credentials:true
 }
 
